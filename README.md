@@ -1,2 +1,2 @@
 # DE-101
-Data Engineering, Data-Learn Course. 
+Data-Learn Course - Data Engineering.

@@ -1,0 +1,33 @@
+
+CREATE TABLE "product_dim"
+(
+ "product_id"   varchar(15) NOT NULL,
+ "product_name" varchar(127) NOT NULL,
+ "category"     varchar(15) NOT NULL,
+ "sub_category" varchar(11) NOT NULL,
+ CONSTRAINT "PK_product_dim" PRIMARY KEY ( "product_id" )
+);
+
+INSERT INTO product_dim
+(product_id, product_name, category, sub_category)
+select distinct product_id, product_name, category, subcategory from orders 
+
+SQL Error [23505]: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "PK_product_dim"
+  Подробности: Ключ "(product_id)=(OFF-PA-10002195)" уже существует.
+
+drop table product_dim cascade;
+
+CREATE TABLE "product_dim"
+(
+ "prod_id"      int NOT NULL,
+ "product_id"   varchar(15) NOT NULL,
+ "product_name" varchar(127) NOT NULL,
+ "category"     varchar(15) NOT NULL,
+ "sub_category" varchar(11) NOT NULL,
+ CONSTRAINT "PK_product_dim" PRIMARY KEY ( "prod_id" )
+);
+
+INSERT INTO product_dim
+(prod_id, product_id, product_name, category, sub_category)
+select 100+row_number() over(), product_id, product_name, category, subcategory
+	from (select distinct product_id, product_name, category, subcategory from orders) a

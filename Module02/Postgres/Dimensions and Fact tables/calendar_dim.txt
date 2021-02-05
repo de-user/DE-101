@@ -1,0 +1,45 @@
+
+CREATE TABLE "calendar_dim"
+(
+ "order_date" date NOT NULL,
+ "year"       int4range NOT NULL,
+ "quarter"    varchar(10) NOT NULL,
+ "mounth"     int4range NOT NULL,
+ "week"       int4range NOT NULL,
+ "week_day"   int4range NOT NULL,
+ CONSTRAINT "PK_calendar_dim" PRIMARY KEY ( "order_date" )
+);
+
+ALTER TABLE public.calendar_dim ALTER COLUMN mounth TYPE varchar(10) USING mounth::varchar;
+ALTER TABLE public.calendar_dim ALTER COLUMN week_day TYPE varchar(10) USING week_day::varchar;
+
+ALTER TABLE public.calendar_dim RENAME COLUMN mounth TO "month";
+
+ALTER TABLE public.calendar_dim ALTER COLUMN "year" TYPE varchar(4) USING "year"::varchar;
+ALTER TABLE public.calendar_dim ALTER COLUMN quarter TYPE varchar(1) USING quarter::varchar;
+ALTER TABLE public.calendar_dim ALTER COLUMN "month" TYPE varchar(2) USING "month"::varchar;
+ALTER TABLE public.calendar_dim ALTER COLUMN week TYPE varchar(3) USING week::varchar;
+
+ALTER TABLE public.calendar_dim DROP COLUMN week;
+
+ALTER TABLE public.calendar_dim ALTER COLUMN quarter TYPE int USING quarter::int;
+ALTER TABLE public.calendar_dim ALTER COLUMN "year" TYPE int USING "year"::int;
+ALTER TABLE public.calendar_dim ALTER COLUMN "month" TYPE int USING "month"::int;
+ALTER TABLE public.calendar_dim ALTER COLUMN week_day TYPE varchar(9) USING week_day::varchar;
+
+
+
+INSERT INTO calendar_dim
+select 
+	distinct order_date, 
+	extract(year from order_date) as "year", 
+	extract(quarter from order_date) as "quarter", 
+	extract(month from order_date) as "month", 
+	to_char(order_date,'Day') as week_day,
+	case 
+		when extract(isodow from order_date) in (6,7) then true 
+		else false 
+	end as weekend
+from orders ;
+
+

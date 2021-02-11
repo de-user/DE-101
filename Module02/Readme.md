@@ -2,7 +2,7 @@
 
 [Обратно на первую страницу ↩️](https://github.com/tatyana-br/DE-101)  
 
-1. SQL-скрипты создания таблиц в БД Postgres и загрузки данных из файла Sample - Superstore:  
+1. SQL-скрипты создания таблиц в БД Postgres и загрузки данных из файла Sample - Superstore.xls:  
 - [Source tables](https://github.com/tatyana-br/DE-101/tree/main/Module02/Postgres/Source%20tables) - создание исходных таблиц, загрузка данных, запросы для ключевых метрик;  
 - [Модель данных](https://github.com/tatyana-br/DE-101/blob/main/Module02/Postgres/Dimensions%20and%20Fact%20tables/%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85.PNG) - пример построения модели данных;  
 - [Dimensions and Fact tables](https://github.com/tatyana-br/DE-101/tree/main/Module02/Postgres/Dimensions%20and%20Fact%20tables) - создание таблиц измерений и фактов с использованием DDL из модели данных, загрузка данных.
